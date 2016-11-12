@@ -1,0 +1,18 @@
+body{background-color: #505050}
+#menu, #sidebar-left, #content, #sidebar-right{background-color: #909090; border-radius: 10px; position: relative; box-shadow: 10px 10px 10px}
+#menu{margin-top: 20px; height: 140px; width: 1420px; margin-left: auto; margin-right: auto}
+#logo{padding: 10px; height: 120px}
+#loupe{position: absolute; top: 12px; right: 30px}
+#logout{position: absolute; bottom: 10px; right: 10px}
+#reload{position: absolute; width: 20px; top: 10px; right: 10px}
+#main-content{position: relative; width: 1420px; margin-left: auto; margin-right: auto}
+#sidebar-left{width: 140px; height: 430px; position: absolute; top: 20px; left: 30px}
+#content{width: 1020px; height: 580px; position: absolute; top: 20px; left: 200px}
+#map-cluster{width: 1000px; height: 560px; padding: 10px}
+#sidebar-right{width: 140px; height: 430px; position: absolute; top: 20px; right: 30px}
+.img-sb-left{width: 70px; margin-top: 5px; margin-left: 35px}
+#eye-border{width: 70px; margin-top: 5px; margin-left: 29px; border: 6px solid red; border-radius: 5px}
+#wall-repeat{width: 120px; height: 70px; background: url("resources/brick.jpg") repeat; margin-left: 10px}
+#form{bottom: 60px; left: 200px; background-color: #88ff89; border-radius: 10px; position: absolute; box-shadow: 10px 10px 10px; border: 1px solid #000; z-index: 999}
+#input-text{border: 1px solid #aaa; box-shadow: 1px 1px 1px #777 inset; height: 18px}
+#input-submit{margin-left: 6px; border: 1px solid #aaa; border-radius: 2px; background: linear-gradient(#eee, #ddd); height: 22px}

@@ -1,0 +1,21 @@
+<- Matrix ----------------------------------------------------------------------
+Const: IDENTITY, SCALE, RX, RY, RZ, TRANSLATION, PROJECTION
+
+The constructor take the following arguments :
+'preset' : type of matrix to construct, one of following const, compulsory.
+'scale' : the scale factor, compulsory when 'preset' = SCALE.
+'angle' : rotation angle in radians, compulsory when 'preset' = RX, RY or RZ.
+'vtx' : vector translation, compulsory when 'preset' = TRANSLATION.
+'fov' : field of view of the projection in degrees, compulsory when 'preset' = PROJECTION.
+'ratio' : ratio of the projected image, compulsory when 'preset' = PROJECTION.
+'near' : near clipping plane of the projection, compulsory when 'preset' = PROJECTION.
+'far' : far clipping plane of the projection, compulsory when 'preset' = PROJECTION.
+
+The class provides the following methods :
+
+Matrix mult( Matrix $rhs );
+Returns a new matrix multiplication result the two matrices.
+
+Vertex transformVertex( Vertex $vtx );
+Returns a new vertex result processing of the vertex by the matrix.
+---------------------------------------------------------------------- Matrix ->

@@ -1,0 +1,15 @@
+<- Vertex ----------------------------------------------------------------------
+The Vertex class represent a point.
+
+The constructor take the following arguments :
+'x' : the vertex's abscissa, compulsory.
+'y' : the vertex's ordinate, compulsory.
+'z' : the vertex's depth, compulsory.
+'w' : optionnal, 1.0 by default.
+'color' : optionnal an instance of Color, if empty, an new instance of the white color.
+
+An instance can be contructed like this:
+new Color(array('x' => 42, 'y' => 42, 'z' => 42));
+
+The class provides one getter and one setter for each attribute.
+---------------------------------------------------------------------- Vertex ->

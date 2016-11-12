@@ -1,0 +1,39 @@
+<- Vector ----------------------------------------------------------------------
+The Vector class represent a vector.
+
+The constructor take the following arguments :
+An array 'dest' : destination of the vector, compulsory.
+An array 'orig' : origin of the vector, optionnal, (x=0, y=0, z=0, w=1) by default.
+
+An instance can be contructed like this:
+new Vector( array( 'orig' => $orig, 'dest' => $dest ) );
+
+The class provides the following methods :
+
+float magnitude();
+Returns lenght of the vector.
+
+Vector normalize();
+Returns normalized vector or if the vector is already normalized return a fresh copy of it.
+
+Vector add( Vector $rhs );
+Add each vector constitutive and returns it total.
+
+Vector sub( Vector $rhs );
+Substracts each vector constitutive and returns it total.
+
+Vector opposite();
+Returns opposite vector.
+
+Vector scalarProduct( $k );
+Returns the product of the vector with a scalar.
+
+float dotProduct( Vector $rhs );
+Returns the dot product of two vectors.
+
+float cos( Vector $rhs );
+Returns the cosine of the angle between two vectors.
+
+Vector crossProduct( Vector $rhs );
+Returns the cross product of two vectors.
+---------------------------------------------------------------------- Vector ->
