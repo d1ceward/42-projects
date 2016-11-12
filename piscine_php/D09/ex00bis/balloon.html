@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Balloon</title>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<style>
+		#balloon{border-radius: 50%; background-color: red; margin: auto}
+	</style>
+	<script>
+		var size = 200, i = 0;
+		function balloonClick(){
+			switch (i) {
+				case 0:
+					$("#balloon").css("background-color","green");
+					i = 1;
+					break;
+				case 1:
+					$("#balloon").css("background-color","blue");
+					i = 2;
+					break;
+				case 2:
+					$("#balloon").css("background-color","red");
+					i = 0;
+					break;
+			}
+			size += 10;
+			if (size > 420)
+				size = 200;
+			$("#balloon").width(size);
+			$("#balloon").height(size);
+		}
+		function balloonHover(){
+			switch (i) {
+				case 0:
+					$("#balloon").css("background-color","blue");
+					i = 2;
+					break;
+				case 1:
+					$("#balloon").css("background-color","red");
+					i = 0;
+					break;
+				case 2:
+					$("#balloon").css("background-color","green");
+					i = 1;
+					break;
+			}
+			size -= 5;
+			if (size < 200)
+				size = 200;
+			$("#balloon").width(size);
+			$("#balloon").height(size);
+		}
+	</script>
+</head>
+<body>
+	<div id="balloon" onclick="balloonClick();" onmouseout="balloonHover();" style="height: 200px; width: 200px"></div>
+</body>
+</html>

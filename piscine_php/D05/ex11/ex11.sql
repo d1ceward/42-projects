@@ -1,0 +1,1 @@
+SELECT UPPER(f.nom) AS 'NOM', f.prenom, a.prix FROM membre m, fiche_personne f, abonnement a WHERE f.id_perso = m.id_fiche_perso AND m.id_abo =  a.id_abo AND a.prix > 42 ORDER BY f.nom ASC, f.prenom ASC;

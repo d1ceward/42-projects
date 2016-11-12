@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Balloon</title>
+	<style>
+		#balloon{border-radius: 50%; background-color: red; margin: auto}
+	</style>
+	<script>
+		var e, size = 200, i = 0;
+		window.onload = function(){
+			e = document.getElementById("balloon");
+		}
+		function balloonClick(){
+			switch (i) {
+				case 0:
+					e.style.backgroundColor = 'green';
+					i = 1;
+					break;
+				case 1:
+					e.style.backgroundColor = 'blue';
+					i = 2;
+					break;
+				case 2:
+					e.style.backgroundColor = 'red';
+					i = 0;
+					break;
+			}
+			size += 10;
+			if (size > 420)
+				size = 200;
+			e.style.height = size + 'px';
+			e.style.width = size + 'px';
+		}
+		function balloonHover(){
+			switch (i) {
+				case 0:
+					e.style.backgroundColor = 'blue';
+					i = 2;
+					break;
+				case 1:
+					e.style.backgroundColor = 'red';
+					i = 0;
+					break;
+				case 2:
+					e.style.backgroundColor = 'green';
+					i = 1;
+					break;
+			}
+			size -= 5;
+			if (size < 200)
+				size = 200;
+			e.style.height = size + 'px';
+			e.style.width = size + 'px';
+		}
+	</script>
+</head>
+<body>
+	<div id="balloon" onclick="balloonClick();" onmouseout="balloonHover();" style="height: 200px; width: 200px"></div>
+</body>
+</html>
