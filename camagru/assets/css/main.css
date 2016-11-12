@@ -1,0 +1,112 @@
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+html{font-family: Verdana, Geneva, Tahoma, sans-serif; color: #fff; height: 100%}
+body{background-color: #525252; height: 100%}
+header, footer{height: 60px; background-color: #424242; width: 100%; line-height: 60px; font-size: 14px}
+header{border-bottom: 1px solid #fff}
+footer{border-top: 1px solid #fff; bottom: 0; display: block; position: fixed}
+header a{color: #fff; text-decoration: none; cursor: pointer}
+header a:hover{color: #bebebe}
+.wrap{width: 90%; margin: auto}
+.left{float: left}
+.right{float: right}
+#header-logo{font-family: Lobster; font-size: 40px; margin-right: 20px; line-height: 50px}
+#header-logo:hover{color: #fff}
+#footer-love{height: 16px; width: 16px}
+#content{padding: 25px 0}
+#home-welcome, #login-block h2{font-size: 30px; font-family: Lobster; line-height: 40px}
+#login-block, #home-welcome, #home-message{margin: 6% auto 0 auto; background-color: #525252; padding: 20px; width: 420px; text-align: center; border: 1px solid #fff}
+#home-message{font-size: 13px; font-family: Verdana, Geneva, Tahoma, sans-serif; margin: 0 auto}
+#login-block h2{margin-bottom: 10px}
+#alert, #alert-pm{font-size: 14px; text-align: center}
+#alert-pm{margin-bottom: 10px}
+.error{background: rgba(255, 0, 0, 0.6); padding: 5px 0}
+.success{background: rgba(0, 255, 0, 0.6); padding: 5px 0}
+.disable{background: rgba(255, 255, 0, 0.6); padding: 5px 0}
+.login-form input{box-sizing: border-box; border: 2px solid #292929; background-color: white; width: 100%; margin: 10px 0; padding: 6px 6px}
+.login-form button{color: #fff; border: 1px solid #fff; background-color: #292929; text-decoration: none; cursor: pointer; padding: 4px 0; width: 100%; margin-top: 10px; font-family: Lobster; font-size: 22px}
+.login-form button:hover{background-color: #525252}
+.modal{display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.8)}
+.modal-content{position: relative; background-color: #525252; margin: 6% auto; padding: 10px; border: 1px solid #888; width: 710px;}
+#photo, #mask-modal{margin: 35px 0 0 35px; width: 640px; height: 480px}
+#description{resize: none; margin: 10px 0 0 35px; width: 548px}
+.alert-pt{width: 640px; margin: 0 auto; margin-top: 6px}
+#submit-pt{padding: 2px 6px; color: #fff; border: 1px solid #fff; background-color: #292929; text-decoration: none; cursor: pointer; height: 34px; position: relative; bottom: 13px}
+#submit-pt:hover{background-color: #525252}
+.close{color: #aaa; float: right; font-size: 28px; font-weight: bold; padding-right: 4px}
+.close:hover, .close:focus{color: black; text-decoration: none; cursor: pointer}
+.photo{width: 640px; margin: 10px auto; border: 1px solid #fff; background-color: #424242}
+.like-button{cursor: pointer; display: inline-block; margin: 10px}
+.like-button:hover{text-decoration: underline}
+.like-icon{height: 16px; width: 16px; margin-right: 5px}
+.like-count{float: right; margin: 10px}
+.comment{margin: 0 10px; border-top: 1px solid #fff; padding: 10px 0}
+ul.pagination{display: inline-block; font-size: 12px}
+ul.pagination li{display: inline}
+ul.pagination li a{padding: 0 4px; text-decoration: none; color: #fff}
+ul.pagination li a:hover{text-decoration: underline}
+ul.pagination li.current, ul.pagination li.dot{color: #000}
+#pagination{width: 640px; margin: 10px auto; margin-bottom: 65px}
+#pagination .right{float: right}
+#jump_to{width: 30px; margin-right: 5px}
+#jump_to_submit{padding: 2px 6px; color: #fff; border: 1px solid #fff; background-color: #292929; text-decoration: none; cursor: pointer}
+#jump_to_submit:hover{background-color: #525252}
+.user-info{padding: 10px; display: inline-block}
+.user-info img{float: left; height: 36px; width: 36px}
+.user-login{font-weight: bold}
+.user-login, .user-date{margin-left: 41px}
+.user-date{color: #aaa; font-size: 14px}
+.photo .close{float: right; margin: 10px}
+.photo-info{padding: 10px; font-size: 13px; padding-top: 0}
+.comment .user-info{font-size: 14px}
+.comment .user-info img{height: 26px; width: 26px}
+.comment .user-date{font-size: 12px}
+.comment .user-login, .comment .user-date{margin-left: 31px}
+.comment .close{float: right; margin: 5px}
+.cmt-info{padding: 10px; font-size: 12px; padding-top: 0; word-wrap: break-word}
+.comment textarea{width: 84%; resize: none; margin-top: 10px}
+#submit-cmt{padding: 2px 6px; color: #fff; border: 1px solid #fff; background-color: #292929; text-decoration: none; cursor: pointer; height: 34px; position: relative; bottom: 13px; right: -7px;}
+#submit-cmt:hover{background-color: #525252}
+#gallery #alert{width: 640px; margin: 0 auto}
+#wrap_pu{width: 840px; margin: 0 auto}
+#photo_upload{width: 640px; float: left; border: 1px solid #fff; background-color: #424242; margin-bottom: 30px; position: relative}
+#video{width: 640px; height: 480px; background-color: #f00}
+#sb_title{background-color: #888787; float: right; border: 1px solid #fff; font-family: Lobster; width: 167px; text-align: center; padding: 5px; font-size: 20px}
+#sidebar{float: right; overflow-y: scroll; width: 177px; height: 500px; border: 1px solid #fff; background-color: #424242; border-top: 0px; margin-bottom: 71px}
+#sidebar img{width: 160px; height: 120px; margin-bottom: 5px}
+#twitter-share-button{height: 28px; padding: 7px 10px 7px 9px; border-radius: 4px; position: relative; background-color: #1b95e0; bottom: 10px; left: 13px}
+#twitter-share-button:hover{background-color: #0c7abf}
+#twitter-share-button img{position: relative; top: 4px; width: 18px; height: 18px}
+#file{width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1}
+#file + label{font-size: 12px; padding: 2px 6px; color: #fff; border: 1px solid #fff; background-color: #292929; text-decoration: none; cursor: pointer}
+#file + label:hover{background-color: #525252}
+#panel-top{padding: 10px}
+#uploaded_file{position: relative; height: 15px}
+#take-photo{font-size: 12px; padding: 2px 6px; color: #fff; border: 1px solid #fff; background-color: #292929; text-decoration: none; cursor: pointer; position: relative; float: right}
+#take-photo:hover:enabled{background-color: #525252}
+#take-photo:disabled{color: #424242}
+#mask-modal, #mask-img{position: absolute; top: 0; left: 0}
+#mask-modal{top: 10px; left: 10px}
+#mask-img{width: 640px; height: 480px}
+#mask_stitle{background-color: #888787; text-align: center; border-top: 1px solid #fff; font-family: Lobster; border-bottom: 1px solid #fff; padding: 5px; font-size: 20px}
+@media screen and (max-width: 930px) {
+	#wrap_pu{width: 584px}
+	#photo_upload{width: 384px}
+	#video, #canvas{width: 384px; height: 288px}
+}
+@media screen and (max-width: 700px) {
+	.comment textarea{width: 70%}
+	.photo, #pagination, #gallery #alert, .alert-pt{width: 384px}
+	.photo-img, #photo, #mask-modal{width: 384px; height: 288px}
+	#wrap_pu{width: 386px}
+	#photo_upload, #sidebar, #sb_title{float: none}
+	#sb_title{width: 374px}
+	#sidebar{width: 384px}
+	#sidebar img{margin-left: 16px}
+	.modal-content{width: 414px}
+	#description{width: 282px; margin: 10px 0 0 15px}
+	#close-pt{display: none}
+	#photo, #mask-modal{margin: 15px 0 0 15px}
+}
+@media screen and (max-width: 528px) {
+	.hidden{display: none}
+}
