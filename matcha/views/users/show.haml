@@ -1,0 +1,93 @@
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b User profile
+.row.container
+  - if @user['blocked_usernames'] && @user['blocked_usernames'].include?(user['username'])
+    .col-sm-12
+      .callout.alert.large
+        %h1 Blocked user
+        %a.button.alert{ :href => "/unblock/#{user['username']}" } Unblock
+  - if report_nb > 2
+    .col-sm-12
+      .callout.alert.large
+        %h1 This user was reported multiples times by others users
+  .col-lg-6.userinfo
+    .imgcont
+      - if user['profilePicture']
+        %img.profile-picture{ :src => "#{user['profilePicture']}" }
+      - else
+        %img.profile-picture{ :src => "#{Faker::Placeholdit.image("500x500", 'jpg')}" }
+    .col-lg-12
+      - if user['pictures']
+        - for pic in user['pictures']
+          - if pic != user['profilePicture']
+            .imgcont.mini
+              %img{ :src => "#{pic}" }
+    .col-lg-12
+      .row
+        .col-sm-12
+          %label Location
+          %div#map{ :style => "height: 470px; width: 470px" }
+          :javascript
+            function initMap() {
+              var myLatLng = {lat: #{user['location']['coordinates'][1]}, lng: #{user['location']['coordinates'][0]}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: myLatLng,
+                disableDefaultUI: true,
+                navigationControl: false,
+                mapTypeControl: false,
+                draggable: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              });
+              var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Him'
+              });
+            }
+          %script{ :async => true, :defer => true, :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyAovqAhd91ItMgtrJOao2Z_oPWdf-adOnQ&callback=initMap" }
+  .col-lg-6.userinfo
+    .row
+      %h2.score
+        Score:
+        = user['score']
+      %h2.lvs
+        - if (DateTime.now.to_time.to_i - user['lastVisit'].to_time.to_i) > 300
+          Last visit:
+          = user['lastVisit'].strftime("%d/%m/%Y %H:%M") rescue "Never"
+        - else
+          %i.fi-torso{ :style => "color: green" }
+          Online
+      %div
+        %div{ :style => "font-size:2em" }= user['first_name']
+        = user['bio']
+      .col-sm-12
+        %label Age
+        = user['age']
+      .col-sm-12
+        %label Sex
+        = user['sex'].capitalize
+      .col-sm-12
+        %label Orientation
+        - user['orientation'].each do |item|
+          = item.capitalize
+      .col-sm-12#tags
+        - if user['interests'].count
+          - for tag in user['interests']
+            - if tag != "Default"
+              %span.label.label-default.label-fill
+                %a{ :href => "/users/search/1?tag=#{tag}" }= "##{tag} "
+        - else
+          %div
+            %div{ :style => "font-size:14px" } No Interests
+    - if user['username'] != @user['username']
+      .button-group.expanded.small
+        - if i_like
+          %a.btn.btn-warning.fi-dislike{ :href => "/unlike/#{user['username']}" }= " Unlike"
+        - else
+          %a.btn.btn-success.fi-like{ :href => "/like/#{user['username']}" }= " Like"
+        %a.btn.btn-info.fi-comment{ :href => "/messages/show/#{user['username']}" }= " Chat"
+        %a.btn.btn-warning.fi-flag{ :href => "/report/#{user['username']}" }= " Report"
+        %a.btn.btn-danger{ :href => "/block/#{user['username']}" }= " Bloquer"

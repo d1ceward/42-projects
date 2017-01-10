@@ -1,0 +1,79 @@
+!!! 5
+%html
+  %head
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0, user-scalable=no" }
+    %title= title + " - Matcha"
+    %script{ :type => "text/javascript", :src => "https://code.jquery.com/jquery-2.2.0.min.js" }
+    %script{ :type => "text/javascript", :src => "/bootstrap/js/bootstrap.min.js" }
+    %script{ :type => "text/javascript", :src => "/bootstrap-notify.min.js" }
+    %script{ :type => "text/javascript", :src => "https://cdn.jsdelivr.net/foundation/6.1.1/foundation.min.js" }
+    %link{ :rel => "stylesheet", :href => "/bootstrap/css/bootstrap.min.css" }
+    %link{ :rel => "stylesheet", :href =>"https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css" }
+    %link{ :rel => "stylesheet", :href => "/main.css" }
+  %body
+    .top-bar#top_bar
+      .row
+        .top-bar-left
+          %ul.vertical.medium-horizontal.menu.expanded{ "data-drilldown" => true }
+            %li.menu-text
+              Matcha
+            - if true
+              %li
+                %a{ :href => "/" } Home
+              %li
+                %a{ :href => "/users/all/1" } Browse
+              %li
+                %a{ :href => "/users/search/1" } Search
+              %li
+                %a#messages-topbar-text{ :href => "/messages/all" }
+                  - if defined? @unread_count
+                    %span Messages (#{@unread_count})
+                  - else
+                    %span Messages (0)
+              %li
+                %a#messages-topbar-text{ :href => "/users/notifs" }
+                  - if defined? @unread_count2
+                    %span Notifications (#{@unread_count2})
+                  - else
+                    %span Notifications (0)
+            - if @user
+              %li
+                %a{ :href => "/users/edit/#{@user['username']}" }= @user['username']
+              %li
+                %a{ :href => "/users/signout" } Sign out
+            - else
+              %li
+                %a{ :href => "/users/signin" } Sign in
+              %li
+                %a{ :href => "/users/signup" } Sign up
+    - if flash[:danger]
+      .row.small-12.columns.small-centered.alert-box{ "data-alert" => "danger" }
+        .callout.secondary
+          = flash[:danger]
+    - elsif flash[:success]
+      .row.small-12.columns.small-centered.alert-box{ "data-alert" => "success" }
+        .callout.secondary
+          = flash[:success]
+    :javascript
+      setInterval(function(){
+        $.post('/notifs').done(function(data) {
+          if (data) {
+            for (var i = 0; i < data.length; ++i) {
+              $.notify(data[i]['message'], {
+                animate: {
+                  enter: 'animated fadeInRight',
+                  exit: 'animated fadeOutRight'
+                },
+                placement: {
+                  from: "bottom",
+                  align: "left"
+                },
+                delay: 6000,
+                type: "success"
+              });
+            }
+          }
+        });
+      }, 8000);
+    = yield

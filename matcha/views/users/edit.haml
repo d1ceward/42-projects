@@ -1,0 +1,147 @@
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b Edit your informations
+%form#user_form.row.container{ :action => "/users/edit/#{user['username']}", :enctype => "multipart/form-data", :method => "post" }
+  .col-lg-6.userinfo
+    #pictures
+      .imgcont
+        - if user['profilePicture']
+          %img.profile-picture{ :src => "#{user['profilePicture']}" }
+        - else
+          %img.profile-picture{ :src => "#{Faker::Placeholdit.image("500x500", 'jpg')}" }
+      .col-lg-12
+        - if user['pictures']
+          - for pic in user['pictures']
+            - if pic != user['profilePicture']
+              .imgcont.mini{ :style => "position: relative" }
+                %img{ :src => "#{pic}" }
+                .edit_img
+                  %a{ :style => "cursor: pointer", "onclick" => "edit_photo(0, '#{pic}')", :title => "Add as profile picture" }
+                    %i.fi-plus
+                  %a{ :style => "cursor: pointer", "onclick" => "edit_photo(1, '#{pic}')", :title => "Delete picture" }
+                    %i.fi-x
+        :javascript
+          function edit_photo(action, picture) {
+            $.post('/users/edit_photo/', { action: action, picture: picture }).done(function(data) {
+              $(".alert-box").remove();
+              if (data['state'] == 1) {
+                $("#pictures").load(window.location.pathname + " #pictures");
+              } else
+                $("#top_bar").append('<div class="row small-12 columns small-centered alert-box" data-alert="danger"><div class="callout secondary">' + data['message'] + '</div></div>');
+            });
+          }
+    %input#file.form-control.col-lg-12{ :type => "file", :name => "file" }
+    .col-lg-12
+      .row
+        .col-sm-12
+          %label Location
+          %input#location-lat{ :type => "text", :style => "display: none", :name => "location-lat", :value => user['location']['coordinates'][1] }
+          %input#location-lng{ :type => "text", :style => "display: none", :name => "location-lng", :value => user['location']['coordinates'][0] }
+          %div#map{ :style => "height: 470px; width: 470px" }
+          :javascript
+            function initMap() {
+              var myLatLng = {lat: #{user['location']['coordinates'][1]}, lng: #{user['location']['coordinates'][0]}};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: myLatLng,
+                disableDefaultUI: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              });
+              var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'You',
+                draggable: true
+              });
+              google.maps.event.addListener(marker, 'click', function (event) {
+                document.getElementById('location-lat').value = event.latLng.lat();
+                document.getElementById('location-lng').value = event.latLng.lng();
+              });
+              google.maps.event.addListener(marker, 'dragend', function (event) {
+                document.getElementById('location-lat').value = event.latLng.lat();
+                document.getElementById('location-lng').value = event.latLng.lng();
+              });
+            }
+          %script{ :async => true, :defer => true, :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyAovqAhd91ItMgtrJOao2Z_oPWdf-adOnQ&callback=initMap" }
+  .col-lg-6.userinfo
+    .row
+      %h2.score
+        Score:
+        = user['score'] || 0
+      %h2.lvs
+        - if (DateTime.now.to_time.to_i - user['lastVisit'].to_time.to_i) > 300
+          Last visit:
+          = user['lastVisit'].strftime("%d/%m/%Y %H:%M") rescue "Never"
+        - else
+          %i.fi-torso{ :style => "color: green" }
+          Online
+      %div
+        %label First Name
+        %input.form-control{ :name => "first_name", :style => "font-size:2em", :value => "#{user['first_name']}" }
+        %label Last Name
+        %input.form-control{ :name => "last_name", :style => "font-size:2em", :value => "#{user['last_name']}" }
+        %textarea.form-control{ :name => "bio" }
+          = user['bio']
+      .col-sm-12
+        %label Age
+        %input.form-control{ :type => "number", :name => "age", :value => user['age'] }
+      .col-sm-12
+        %label E-mail
+        %input.form-control{ :type => "email", :name => "email", :value => user['email'] }
+      .col-sm-12
+        %label Sex
+        %select.form-control{ :name => "sex", :form => "user_form" }
+          - for s in ['male', 'female']
+            - if user['sex'] == s
+              %option{ "selected" => true }= s
+            - else
+              %option= s
+      .col-sm-12
+        %label{ :style => "width:100%" }
+          Orientation
+          - for o in ['male', 'female']
+            %label{ :style => "width: 50px; text-align: center" }
+              - if user['orientation'] && user['orientation'].include?(o)
+                %input.form-control{ :type => "checkbox", :name => "orientation[]", :value => o, "checked" => true, :style => "margin: 0 auto; width: 15px" }
+              - else
+                %input.form-control{ :type => "checkbox", :name => "orientation[]", :value => o, :style => "margin: 0 auto; width: 15px" }
+              = o
+      %input.form-control.btn.btn-fill.btn-info{ :type => "submit", :value => "Update profil", :style => "margin-bottom: 66px" }
+    .col-sm-12.center
+      %input#tagtext.form-control{ :type => "text", :placeholder => "#add_your_tag" }
+      %button#tagbutton.btn.btn-fill.btn-info Add tag
+      :javascript
+        $("#tagbutton").click(function(e) {
+          e.preventDefault();
+          $.post('/users/add_tag/', { tag: $('#tagtext').val() }).done(function(data) {
+            $(".alert-box").remove();
+            if (data['state'] == 1) {
+              $("#tags").load(window.location.pathname + " #tags span");
+              $('#tagtext').val('');
+            } else
+              $("#top_bar").append('<div class="row small-12 columns small-centered alert-box" data-alert="danger"><div class="callout secondary">' + data['message'] + '</div></div>');
+          });
+        });
+    .col-sm-12#tags.container
+      - if user['interests']
+        - for tag in user['interests']
+          - if tag != "Default"
+            %span.label.label-default.label-fill
+              %a{ :style => "cursor: pointer", "onclick" => "delete_tag('#{tag}')" }= "##{tag} "
+      - else
+        %div.userinfo
+          %div{ :style => "font-size:14px" } no interests
+      :javascript
+        function delete_tag(tag) {
+          $.post('/users/delete_tag/', { tag: tag }).done(function(data) {
+            $(".alert-box").remove();
+            if (data['state'] == 1)
+              $("#tags").load(window.location.pathname + " #tags span");
+            else
+              $("#top_bar").append('<div class="row small-12 columns small-centered alert-box" data-alert="danger"><div class="callout secondary">' + data['message'] + '</div></div>');
+          });
+        }
+    .cols-sm-12
+      %a.btn.btn-primary{ :href => "/users/visits/" } Show visiters list
+      %a.btn.btn-primary{ :href => "/users/likes/" } Show likers list

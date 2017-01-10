@@ -1,0 +1,23 @@
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b Signup
+.small-12.small-centered.columns
+  %form{ :method => "post", :action => "/users/signup" }
+    .row.column
+      .input-group
+        %input#username.form-control{ :type => "text", :name => "username", :placeholder => "Username", :autofocus => true }
+        %input#first_name.form-control{ :type => "text", :name => "first_name", :placeholder => "First Name" }
+        %input#last_name.form-control{ :type => "text", :name => "last_name", :placeholder => "Last Name" }
+        %input#password.form-control{ :type => "password", :name => "password", :placeholder => "Password" }
+        %input#confirm_password.form-control{ :type => "password", :name => "confirm_password", :placeholder => "Confirm Password" }
+        %input#age.form-control{ :type => "text", :name => "age", :placeholder => "Age" }
+        %div{ "data-toggle" => "buttons" }
+          %label.btn.btn-default.btn-circle.btn-lg.active
+            %input{ :type => "radio", :name => "sex", :value => "male", :checked =>"checked" }
+              %i.fi-male
+          %label.btn.btn-default.btn-circle.btn-lg
+            %input{ :type => "radio", :name => "sex", :value => "female" }
+              %i.fi-female
+        %input#email.form-control{ :type => "email", :name => "email", :placeholder => "Email" }
+        %input.small-12.small-centered.button{ :type => "submit", :name => "submit", :value => "Sign up" }
