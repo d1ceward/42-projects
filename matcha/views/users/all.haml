@@ -1,0 +1,68 @@
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b Browse
+.row
+  %form.small-6.columns.col-sm-offset-2#search-form{ :action => "", :method => "get", :name => "filter-form" }
+    %label
+      Age min
+      %input{ :type => "number", :name => "min_age", :value => "#{params['min_age'] == M_Fixnum::MIN ? 0 : params['min_age']}" }
+    %label
+      Age max
+      %input{ :type => "number", :name => "max_age", :value => "#{params['max_age'] == M_Fixnum::MAX ? 0 : params['max_age']}" }
+    %label
+      Score min
+      %input{ :type => "number", :name => "min_score", :value => "#{params['min_score'] == M_Fixnum::MIN ? 0 : params['min_score']}" }
+    %label
+      Score max
+      %input{ :type => "number", :name => "max_score", :value => "#{params['max_score'] == M_Fixnum::MAX ? 0 : params['max_score']}" }
+    %label
+      Distance max
+      %input{ :type => "number", :name => "max_distance", :value => "#{params['max_distance'] == "max" ? 0 : params['max_distance']}" }
+    %label
+      Tag
+      %input{ :type => "text", :name => "tag", :value => "#{params['tag']}" }
+    %label
+      Sort by
+      %select{ :name => "sort_by", :form => "search-form" }
+        %option{ :value => "0", "selected" => params['sort_by'].to_i == 0 ? true : false } None
+        %option{ :value => "1", "selected" => params['sort_by'].to_i == 1 ? true : false } Age
+        %option{ :value => "2", "selected" => params['sort_by'].to_i == 2 ? true : false } Distance
+        %option{ :value => "3", "selected" => params['sort_by'].to_i == 3 ? true : false } Score
+        %option{ :value => "4", "selected" => params['sort_by'].to_i == 4 ? true : false } Tags
+    %label
+      Order by
+      %select{ :name => "order_by", :form => "search-form" }
+        %option{ :value => "1", "selected" => params['order_by'].to_i == 1 ? true : false } Ascending
+        %option{ :value => "-1", "selected" => params['order_by'].to_i == -1 ? true : false } Descending
+    %button.button{ :type => "submit" } Filter
+.row
+  .col-sm-12{ :style => "text-align: center" }
+    %ul.pagination{ :role => "menubar" }
+      - if page.to_i > 1
+        %li.arrow
+          %a{ :href => "/users/all/#{page-1}?#{request.query_string}" } «
+      %li.arrow
+        %a{ :href => "/users/all/#{page+1}?#{request.query_string}" } »
+.row
+  .col-sm-12
+    - for user in users
+      .col-sm-4
+        .item
+          %a{ :href => "/users/show/#{user['username']}" }
+            - if user['profilePicture']
+              %img.col-sm-4{ :src => "#{user['profilePicture']}" }
+            - else
+              %img.col-sm-4{ :src => "#{Faker::Placeholdit.image("500x500", 'jpg')}" }
+            %div.col-sm-8
+              %h1= user['username']
+              %span= "Score: #{user['score'] || 0}"
+              %span= "Location: #{user['distance'].to_i / 1000} Km"
+.row
+  .col-sm-12{ :style => "text-align: center" }
+    %ul.pagination{ :role => "menubar" }
+      - if page.to_i > 1
+        %li.arrow
+          %a{ :href => "/users/all/#{page - 1}?#{request.query_string}" } «
+      %li.arrow
+        %a{ :href => "/users/all/#{page + 1}?#{request.query_string}" } »

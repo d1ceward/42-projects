@@ -1,0 +1,17 @@
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b Notifications
+- if notifs.count > 0
+  .container
+    .col-sm-6.col-sm-offset-3
+      %br
+      - for notif in notifs
+        .well
+          = notif['message']
+          .message-status
+            = notif['has_been_read'] ? 'Read' : 'Not Read'
+- else
+  .row
+    .small-12.small-centered.columns{ :style => "text-align: center" }
+      %h2.subheader No new notifications...

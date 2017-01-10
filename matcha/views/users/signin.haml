@@ -1,0 +1,13 @@
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b Signin
+.small-12.small-centered.columns
+  %form{ :method => "post", :action => "/users/signin" }
+    .row.column
+      .input-group
+        %input#username.form-control{ :type => "text", :name => "username", :placeholder => "Username", :autofocus => true }
+        %input#password.form-control{ :type => "password", :name => "password", :placeholder => "Password" }
+        .button-group
+          %input.small-6.small-centered.button{ :type => "submit", :name => "submit", :value => "Sign in" }
+          %a.button.small-6.small-centered{ :href => "/users/forgot_password" } Forgot password

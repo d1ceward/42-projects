@@ -1,0 +1,35 @@
+:javascript
+  setInterval(function () {
+    jQuery("#messages-container").load(window.location.pathname+" #messages-container2")
+  }, 8000);
+.row
+  .small-12.small-centered.columns{ :style => "text-align: center" }
+    %h1
+      %b Messages
+- if messages
+  .container#messages-container
+    #messages-container2
+      .col-sm-6.col-sm-offset-3
+        - for message in messages
+          .well.message-lol
+            - if message['emitter'] == @user['username']
+              %img{ :src => "#{@user['profilePicture'] rescue Faker::Placeholdit.image("30x30", 'jpg')}" }
+            - else
+              %img{ :src => "#{receiver['profilePicture'] rescue Faker::Placeholdit.image("30x30", 'jpg')}" }
+            .message-content
+              .message-emitter
+                = message['emitter']
+              = message['content']
+              .message-status
+                = message['has_been_read'] ? 'Read' : 'Not Read'
+- else
+  .row
+    .small-12.small-centered.columns{ :style => "text-align: center" }
+      %h2.subheader No messages...
+.container
+  .col-sm-6.col-sm-offset-3
+    #message-send
+      %form{ :action => "/messages/send/#{receiver['username']}", :method => "post", :id => "form" }
+        %input{ :type => "text", :name => "message", :placeholder => "Message...", "autofocus" => true }
+        %input.button.hollow.expand{ :type => "submit", :value => "Send" }
+%br

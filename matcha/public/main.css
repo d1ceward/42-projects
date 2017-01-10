@@ -1,0 +1,64 @@
+body{background-color: #f5f5f5}
+.row{margin: 0!important}
+.row.container{margin: 0 auto!important; padding: 15px}
+.btn{margin: 10px}
+.center{text-align: center}
+.logo{margin: 20px}
+.top-bar{background: #28292f; color: #fff; padding-top: 10px}
+.top-bar ul{list-style: none}
+.top-bar ul li{margin: 0 10px; display: inline-block; text-align: center; padding: 10px 0; text-transform: uppercase}
+.top-bar ul li:first-of-type{font-weight: 800}
+.top-bar ul a{color: #fff; text-transform: uppercase}
+.main{text-align: center;}
+.main a{margin: 50px}
+.main h2{margin: 0}
+span.label{margin: 2px 3px}
+span.label a{color: #fff}
+input, textarea{outline: none; text-align: center; font-weight: 200; color: #2ca8ff; border: 1px solid #ddd;}
+.form-control:focus{border-color: #2ca8ff;}
+[data-alert]{padding: 15px; text-align: center; color: #fff; text-transform: uppercase}
+[data-alert="success"]{background: #63d069}
+[data-alert="danger"]{background: #ff3b30}
+
+/* login / register */
+.input-group{width: 300px; margin: 0 auto!important; padding: 10px; text-align: center}
+.input-group label{width: 100%; font-weight: 400}
+.input-group input{width: 100%; border-radius: 3px; padding: 10px; text-align: center; font-weight: 200; color: #2ca8ff; border: 1px solid #ddd; outline: none; margin: 10px 0 15px 0}
+.input-group input:focus{border-color: #2ca8ff}
+.btn-circle{text-align: center}
+.btn-circle.btn-lg{width: 25px; height: 25px; padding: 2px 2px; font-size: 18px; border-radius: 25px}
+.btn:focus, .btn:active, .btn:active:focus{outline: none}
+.input-group input[type="submit"]{background: #2ca8ff; color: #fff; margin: 10px 0; border-color: #2ca8ff}
+
+/* profile */
+.score{font-size: 1.5em; font-weight: 300; margin-bottom: 0}
+.lvs{font-size: 1.2em; font-weight: 400; margin-top: 0}
+.imgcont{background: #2e2e2e; margin: 10px; border-radius: 8px}
+.imgcont.mini{width: 20%; height: 90px; float: left}
+.imgcont.mini img{max-width: 100%; max-height: 90px}
+.profile-picture{max-width: 80%; max-height: 432px}
+.userinfo{position: relative; text-align: center}
+.userinfo input[id="file"]{width: 80%; margin: 0 10%; background: #e6e6e6}
+.userinfo input[name="name"]{font-size: 2em; font-weight: 300; padding: 20px 10px; margin: 10px 0}
+.userinfo textarea[name="bio"]{height: 140px; font-weight: 300; font-size: 1.2em; resize: none; margin: 10px 0}
+
+/* edit */
+.edit_img{position: absolute; top: 2px; left: 6px}
+
+/* list */
+.item{background: #fff; overflow: hidden; padding: 10px; border-radius: 3px; border: 1px solid #eee; margin: 10px 0}
+.item h1{font-size: 2em; color: #2ca8ff; margin: 20px 0 10px 0; text-overflow: ellipsis; overflow: hidden}
+.item span{display: block; color: #333}
+.item img{min-height: 110px}
+
+/* convs */
+#lol{text-decoration: none}
+#lol:hover{text-decoration: none}
+#lol img{width: 64px; height: 64px; margin-right: 10px}
+
+/* chat */
+.message-lol img{width: 64px; height: 64px; float: left; display: block}
+.message-content{margin-left: 74px; min-height: 64px}
+.message-emitter{color: #337ab7}
+.message-status{font-size: 0.8em; margin-top: 2px}
+#message-send input[type="text"]{width: calc(100% - 51px)}
