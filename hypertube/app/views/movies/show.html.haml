@@ -1,0 +1,80 @@
+%body.online.movie
+  = render :partial => 'headers/online'
+  %section#wrapper
+    = cache [Time.now, params[:locale] || current_user.try(:language), current_user.id, resource.id, resource.in?(current_user.movies), resource.poster.nil?] do
+      .left
+        %h2
+          = "#{resource.title} (#{resource.year})"
+          .pull-right
+            - if resource.in? current_user.movies
+              = button_to user_movie_path(current_user.user_movies.where(movie_id: resource.id).first.id), method: :delete, class: 'btn btn-danger' do
+                %i.fa.fa-times
+                = I18n.t('movie.remove-to-my-list')
+            - else
+              = button_to user_movies_path, method: :post, params: { user_movie: {movie_id: resource.id, user_id: current_user.id} }, class: 'btn btn-primary' do
+                %i.fa.fa-plus
+                = I18n.t('movie.add-to-my-list')
+        %p= "Genres : #{translate_genres(@imdbinfo.genres.join(", "))}"
+        %p= "#{t('online.text.duration')} : #{resource.length} minutes"
+        - if @imdbinfo.rating
+          %p= "#{t('online.text.rating')} : #{@imdbinfo.rating} / 10"
+        - else
+          %p= "#{t('online.text.rating')} : #{t('online.text.no_rating')}"
+        %p= "#{t('online.text.date')} : #{translate_date(@imdbinfo.release_date)}"
+        %p= "#{t('online.text.director')} : #{@imdbinfo.director.join(", ")}"
+        %p= "#{t('online.text.cast')} : #{@imdbinfo.cast_members.take(10).join(", ")}"
+        %p= "#{@imdbinfo.plot_summary}".gsub(/(<a href="\/name\/nm[0-9]{7}">)|(<\/a>)/, '')
+      .right
+        %figure
+          - if resource.poster
+            = image_tag resource.poster
+          - if resource.viewed? current_user
+            .viewed
+              %span.iconimg-checkmark
+              %p= "#{t('online.text.viewed')}"
+    .container
+      %ul.nav.nav-pills.nav-justified
+        - if resource.trailer_url
+          %li.nav-item
+            %a.nav-link.active{href: '#trailer', role: 'tab', data: {toggle: 'tab'}} #{t('online.text.trailer')}
+        %li.nav-item
+          %a.nav-link{href: '#player', role: 'tab', data: {toggle: 'tab', movie: resource.id}, class: resource.trailer_url ? '' : 'active'} Film
+    .tab-content.clearfix
+      .tab-pane#player{role: 'tabpanel', class: resource.trailer_url ? '' : 'active'}
+        = cache [resource.id, resource.uid_imdb, resource.downloaded?, resource.subtiltes.map(&:id)] do
+          .d-flex.justify-content-center
+            - if resource.downloaded?
+              %link{ :href => "https://cdn.jsdelivr.net/mediaelement/3.1.2/mediaelementplayer.min.css", :rel => "stylesheet" }
+              %video#main_player{ :width => "960", :height => "540", "controls" => true, :crossorigin => "anonymous"}
+                %source{ :src => "http://localhost:3001/#{resource.uid_imdb}/index.m3u8", :type => "application/x-mpegURL" }
+                - resource.subtiltes.each do |sub|
+                  %track{ :src => "http://localhost:3001/#{sub.path}", :kind => "subtitles", :srclang => "#{sub.label}", :label => "#{translate_language(sub.label)}" }
+              %script{ :src => "https://cdn.jsdelivr.net/mediaelement/3.1.2/mediaelement-and-player.min.js" }
+              :javascript
+                $.getScript('https://cdn.jsdelivr.net/mediaelement/3.1.2/mediaelement-and-player.min.js', function (){
+                  $('#main_player').mediaelementplayer();
+                })
+            - else
+              .d-flex.justify-content-center.align-items-center{style: 'height: 540px'}
+                - if resource.movie_download.try(:downloading?)
+                  %button.btn.btn-fill_btn-info.disabled{disabled: true}
+                    = t('online.movie.wait')
+                - else
+                  = button_to "#{t('online.movie.download')}", movie_downloads_path(movie_download: {movie_id: resource.id}, :method => :post), remote: true, id: 'jpp', data: { disable_with: 'Downloading... Please wait' }, class: "btn btn-fill btn-info"
+      - if resource.trailer_url
+        = cache [resource.id, resource.trailer_url], :expires_in => 1.days do
+          .tab-pane.active#trailer{role: 'tabpanel'}
+            .d-flex.justify-content-center
+              - open("#{resource.trailer_url}imdb/single") { |f| @trailer = f.read }
+              - if @trailer != ''
+                .trailer
+                  %video{:name => 'media', :controls => '', :width => "960", :height => "540"}
+                    %source{:src => @trailer.split('"videoUrl":"')[1].split('"')[0], :type => 'video/mp4'}
+    .comments.movie_page
+      %h2
+        #{t('online.text.comments')} (#{resource.comments.count})
+        .pull-right
+          %button{data: {toggle: 'modal', target: '#newCommentModal'}}= t('online.placeholder.new_comment')
+      = render partial: 'comments/modal_new', locals: {movie: resource}
+      - resource.comments.each do |c|
+        = render partial: 'comments/item', locals: {c: c, profile: false}

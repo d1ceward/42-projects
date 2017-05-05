@@ -1,0 +1,27 @@
+- if UserFriend.where(:friend_user_id => current_user, :request_accepted_at => nil).any?
+  .circle_red
+.notification_request
+  %h2.title_list Notification
+  - if UserFriend.where(:friend_user_id => current_user, :request_accepted_at => nil).any?
+    - UserFriend.where(:friend_user_id => current_user, :request_accepted_at => nil).each do |friend|
+      - if !friend.request_accepted_at
+        - @u = User.find(friend.user_id)
+        .request_friend_content
+          .user
+            %figure
+              = link_to user_path(@u.username) do
+                - if @u.custom_cover.url
+                  = image_tag "#{@u.custom_cover.url}"
+                - elsif @u.cover
+                  = image_tag "#{@u.cover}"
+                - else
+                  = image_tag 'user_placeholder.png'
+          .request_content
+            = link_to(@u.username, user_path(@u.username))
+            %p= t('online.friend.want')
+            = button_to accept_user_friend_path(friend), class: 'btn btn-primary' do
+              = t('online.friend.accept')
+            = button_to user_friend_path(friend.id), :method => :delete, class: 'btn btn-danger' do
+              = t('online.friend.denied')
+  - else
+    %h2.title_list= t('online.friend.notif')

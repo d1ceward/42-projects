@@ -1,0 +1,132 @@
+// ANIMATIONS
+@keyframes zoom {
+	from { transform: scale(1); }
+	to { transform: scale(1.2); }
+}
+
+// GENERAL STYLES
+*, *:after, *:before { box-sizing: border-box; outline: none; }
+body { background: $b;
+	@for $index from 1 through 6 { h#{$index} { margin: 0; } }
+	a { text-decoration: none; }
+	p, figure { margin: 0; }
+	ul { list-style: none; padding: 0; margin: 0; }
+	label { display: block; padding-top: 10px; }
+	input[type=file] { display: none;
+		& + label { position: relative !important; top: 0 !important; cursor: pointer !important; font-size: 14px !important; padding: 10px; background: $c; border-radius: 3px; margin-bottom: 20px;
+			&:hover { background: $h; }
+      span { display: inline-block; vertical-align: middle; }
+			span:first-child { margin-right: 15px; }
+      span#text-content { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: calc(100% - 60px); }
+			label { color: $c; position: absolute; left: 0; top: auto; font-size: 12px; padding: 15px 0; }
+		}
+	}
+	input[type=text], input[type=email], input[type=password] { width: 100%; padding: 10px 0; border: none; }
+	input[type=checkbox] { display: none;
+		& + label { cursor: pointer !important; transition: all .2s ease-in-out; color: white !important; font-size: 14px !important; font-weight: lighter;
+			& > span { border-radius: 2px; position: relative; height: 15px; width: 15px; border: 1px solid white; display: inline-block; margin: 0 5px -2px 0;
+				span { position: absolute; color: transparent; left: 0; top: -3px; font-size: 16px; }
+			}
+		}
+		&:checked + label span span { color: white; }
+	}
+	input[type=submit] { margin: 50px 0 20px 0; background: $c; transition: all .2s ease-in-out; color: white; border: none; font-weight: lighter; text-transform: uppercase; padding: 7px 20px; border-radius: 2px; cursor: pointer; width: 100%; box-shadow: 0 5px 0 darken($h, 10%);
+		&:hover { background: $h; margin-top: 55px; box-shadow: none; }
+	}
+	input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px darken($a, 7%) inset; -webkit-text-fill-color: white !important; }
+	button { border: none; background: $c; transition: background .5s ease-in-out; cursor: pointer; font-size: 14px; font-weight: lighter; padding: 5px 15px; border-radius: 2px;
+		&:hover { background: $h; }
+		&.btn-danger{ background: #e74c3c;
+			&:hover { background: darken(#e74c3c, 10) }
+		}
+	}
+	form { width: 100%; margin: 30px auto 20px auto;
+		.field { position: relative; padding: 10px 0 20px 0;
+			label { position: absolute; color: rgba(white, .5); top: 10px; font-size: 16px; transition: all .5s ease-in-out; cursor: text; }
+			input:not([type=checkbox]) { background: transparent; border-bottom: 3px solid white; transition: border-color .5s ease-in-out;
+				&:focus, &:valid { border-color: $c;
+					& + label { color: $c; font-size: 12px; top: 50px; }
+				}
+				&:not(:focus):invalid { color: transparent; }
+			}
+			&.annotation { padding-bottom: 40px;
+				i { position: absolute; bottom: 0; font-size: 12px; font-weight: lighter; }
+			}
+		}
+		.actions { height: 105px; }
+	}
+	// FORM ERRORS
+	#error_explanation { background: $e; border-radius: 2px; padding: 20px 15px;
+		h2 { text-transform: none; margin-bottom: 10px; font-size: 14px; }
+		ul { font-size: 14px; }
+	}
+	.field_with_errors {
+		label { color: $e !important; font-size: 12px; top: 50px; }
+		input { border-color: $e !important; }
+	}
+
+	// INDEX
+	&.offline {
+		&.index { position: relative; height: 100vh; overflow: hidden;
+			&:before { background: linear-gradient(to right, rgba(black, .9), transparent), url('bg_home.jpg') no-repeat center center fixed, $b; background-size: cover; width: 100%; height: 100%; content: ""; position: absolute; top: 0; left: 0; animation: zoom 30s; transform: scale(1.2); }
+			#wrapper { position: absolute; top: 45%; left: 2%;
+				h1 { font-size: 40px; }
+				h2 { text-transform: uppercase; font-weight: lighter; font-size: 22px; }
+			}
+			footer { position: fixed; bottom: 10px; right: 20px;
+				p { font-size: 10px; font-weight: lighter; color: rgba(white, .6); }
+			}
+		}
+
+		// HEADER
+		header { position: absolute; background: rgba($b, .8); width: 100%; height: 70px;
+			& > a { position: absolute; top: 15px; left: 20px; font-size: 36px; }
+			.links { text-align: right; margin: 20px;
+				.lang >span { width: 3em; height: 1.5em; position: relative; top: -3px;
+					&.open {
+						span.icon-play { transform: rotate(270deg); }
+						a { margin-left: 0; opacity: 1; visibility: visible; }
+					}
+					& > div { padding: 0 0 8px 0; border-bottom: 2px solid $w; }
+					a { padding: 8px 0; border-bottom: 1px solid $w; padding-left: 5px; margin-left: 100%; opacity: 0; visibility: hidden; transition: all .5s ease-in-out; border-radius: none; background: transparent; color: $w; display: block;
+						&:hover { background: rgba($w, .2); }
+					}
+					span.icon-play { transform: rotate(90deg); display: inline-block; margin-left: 15px; font-size: 12px; transition: transform .5s ease-in-out; }
+					span.short { display: none; }
+				}
+				a:not(.lang) { border: none; background: $c; color: #fff; transition: background .5s ease-in-out; cursor: pointer; font-size: 14px; font-weight: lighter; padding: 5px 15px; border-radius: 2px; display: inline-block;
+					&:hover { background: $h; }
+					& + a { background: $w; color: $c;
+						&:hover { background: white; }
+					}
+				}
+			}
+		}
+
+		// REGISTER / LOGIN / FORGOTTEN PASSWORD
+		& { background: darken($a, 7%); }
+		#wrapper { padding: 140px 0 20px 0; text-align: center; width: 500px; margin: 0 auto;
+			h2 { text-transform: uppercase; font-weight: lighter; }
+			p { font-weight: lighter; font-size: 14px;
+				a { text-decoration: underline; color: $c; transition: color .5s ease-in-out; padding-left: 5px;
+					&:hover { color: $h; }
+				}
+			}
+			a.forgot, p a { font-weight: lighter; font-size: 14px; text-decoration: underline; color: $c; transition: color .5s ease-in-out; padding-left: 5px;
+				&.forgot { margin-top: 5px; display: block; }
+				&:hover { color: $h; }
+			}
+			& > a:not(.forgot) { display: block; margin: 10px 0; width: 100%; position: relative; height: 35px; line-height: 35px; border-radius: 2px; font-size: 14px; transition: background .5s ease-in-out;
+				span { position: absolute; left: 0; top: 5px; height: 25px; line-height: 25px; padding: 0 15px; border-right: 1px solid rgba(white, .3); font-size: 18px; }
+				&.facebook { background: $fb; margin-top: 20px; color: #fff;
+					&:hover { background: darken($fb, 10%); }
+				}
+				&.marvin { background: $ft; color: #fff;
+					&:hover { background: darken($ft, 10%); }
+				}
+			}
+			footer p { margin: 40px 0 0 0; color: rgba(white, .3); font-size: 12px; }
+		}
+
+	}
+}

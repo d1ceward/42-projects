@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title GaFlix
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'cs-select.css'
+    = stylesheet_link_tag 'cs-skin-underline.css'
+    = javascript_include_tag 'https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = favicon_link_tag(source='favicon.ico', options={})
+  %body
+    = yield
+    - if notice != nil
+      :javascript
+        notification('success', '#{notice}', 5000)
+    - if flash[:error] != nil
+      :javascript
+        notification('error', '#{flash[:error]}', 5000)

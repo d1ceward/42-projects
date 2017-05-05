@@ -1,0 +1,19 @@
+= link_to movie_path(movie) do
+  = cache [params[:locale] || current_user.try(:language), movie.id, movie.uid_imdb, movie.viewed?(current_user), current_user.id] do
+    %figure.movie
+      .cover
+        = image_tag movie.poster
+      %figcaption
+        %h3= "#{movie.title}"
+        %p= "#{t('online.text.duration')}: #{movie.length} minutes"
+        - if movie.votes
+          %p= "#{t('online.text.rating')} : #{movie.votes} / 10"
+        - else
+          %p= "#{t('online.text.no_rating')}"
+        - unless movie.url.nil?
+          %p
+            = link_to t('online.text.imdb_link'), movie.url
+      - if movie.viewed? current_user
+        .viewed
+          %span.iconimg-checkmark
+          %p= "#{t('online.text.viewed')}"

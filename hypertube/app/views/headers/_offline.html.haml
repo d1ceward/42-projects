@@ -1,0 +1,13 @@
+= cache [params[:locale] || current_user.try(:language), 'headers', 'offline', new_user_registration_path, new_user_session_path] do
+  %header
+    = link_to root_path do
+      %span.logo-gaflix
+    .links
+      - if I18n.locale == :fr
+        = link_to root_path(locale: :en), class: 'lang'  do
+          = flag_icon(:us)
+      - else
+        = link_to root_path(locale: :fr), class: 'lang' do
+          = flag_icon(:fr)
+      = link_to t('offline.links.sign_up'), new_user_registration_path
+      = link_to t('offline.links.sign_in'), new_user_session_path

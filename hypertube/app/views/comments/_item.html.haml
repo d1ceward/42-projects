@@ -1,0 +1,22 @@
+= cache [Time.now, params[:locale] || current_user.try(:language), c.id, c.user_id, c.user == current_user] do
+  .comment
+    - if profile == false
+      .user
+        %figure
+          - if c.user.custom_cover.url
+            = link_to user_path(c.user.username) do
+              = image_tag "#{c.user.custom_cover.url}"
+          - elsif c.user.cover
+            = link_to user_path(c.user.username) do
+              = image_tag "#{c.user.cover}"
+          - else
+            = link_to user_path(c.user.username) do
+              = image_tag 'user_placeholder.png'
+    .text_comment
+      %p= c.content
+      .bottom_comment
+        = (profile == true) ? "#{Movie.find(c.movie_id).title}" : link_to(c.user.username, user_path(c.user.username))
+        = ", #{translate_date(c.created_at.strftime("%d %B %Y %H:%M"))}"
+      - if (can? :destroy, c) && (c.user_id == current_user.id)
+        .remove_button
+          = button_to t('online.placeholder.delete'), movie_comment_path(c.movie_id, c.id), :method => :delete, class: 'btn btn-danger btn-fill', data: { disable_with: t('online.modal.disable') }

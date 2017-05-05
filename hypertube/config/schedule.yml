@@ -1,0 +1,6 @@
+# https://github.com/ondrejbartas/sidekiq-cron
+# config/schedule.yml
+cleanup_movies:
+  cron: "00 00 * * *"
+  class: "CleanupMoviesWorker"
+  queue: default

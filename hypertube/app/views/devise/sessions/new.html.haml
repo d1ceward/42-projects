@@ -1,0 +1,23 @@
+%body.offline
+	= render :partial => 'headers/offline'
+	%section#wrapper
+		%h2= t('offline.links.sign_in')
+		= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+			.field{:class => (resource.errors["email"].count > 0 ? 'field_with_errors' : '')}
+				= f.email_field :email, required: 'required'
+				= f.label :email, t('fields.email')
+			.field{:class => (resource.errors["password"].count > 0 ? 'field_with_errors' : '')}
+				= f.password_field :password, autocomplete: "off", required: 'required'
+				= f.label :password, t('fields.password_log')
+			- if devise_mapping.rememberable?
+				.field.checkbox
+					= f.check_box :remember_me
+					= f.label :remember_me do
+						%span
+							%span.icon-check
+						= t('offline.links.remember')
+			.actions
+				= f.submit t('offline.links.sign_in')
+		= render "devise/shared/links"
+		%footer
+			%p Copyright GaFlix @ 42 by GaTeam

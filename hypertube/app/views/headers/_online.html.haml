@@ -1,0 +1,23 @@
+= cache [Time.now, params[:locale] || current_user.try(:language), 'headers', 'online', current_user.received_requests.pluck(:id), current_user, edit_user_registration_path, destroy_user_session_path] do
+  %header
+    = link_to root_path do
+      %span.logo-ga
+    = render :partial => 'layouts/search'
+    .notif
+      %span{class: "fa fa-bell-o"}
+      = render 'user_friends/request_list', locals: {user: @user}
+    .user
+      .border
+        %figure
+          - if current_user.custom_cover.url
+            = image_tag "#{current_user.custom_cover.url}"
+          - elsif current_user.cover
+            = image_tag "#{current_user.cover}"
+          - else
+            = image_tag 'user_placeholder.png'
+        %span.icon-options
+      .user_links.hidden
+        %p= "#{current_user.username}"
+        = link_to t('online.header.profile'), user_path(current_user.username)
+        = link_to t('online.header.account'), edit_user_registration_path
+        = link_to t('online.header.sign_out'), destroy_user_session_path, :method => :delete

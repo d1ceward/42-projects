@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Movie:
+  = @movie_download.movie
+%p
+  %b Downloaded at:
+  = @movie_download.downloaded_at
+%p
+  %b Downloading:
+  = @movie_download.downloading
+
+= link_to 'Edit', edit_movie_download_path(@movie_download)
+\|
+= link_to 'Back', movie_downloads_path

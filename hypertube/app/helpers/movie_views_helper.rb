@@ -1,0 +1,2 @@
+module MovieViewsHelper
+end

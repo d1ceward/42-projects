@@ -1,0 +1,13 @@
+- if current_user
+  %body.online.movies
+    = content_for :search_bloc do
+      .search
+        %form
+          %input{:type => 'search', :name => 'search', :placeholder => t('fields.search')}
+          .submit
+            %input{:type => 'submit', :value => ''}
+            %span.icon-search
+    = render :partial => 'headers/online'
+    = render partial: 'my_list'
+    %footer
+      %p Copyright GaFlix @ 42 by GaTeam

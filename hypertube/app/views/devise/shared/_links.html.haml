@@ -1,0 +1,23 @@
+- if controller_name != 'sessions'
+	%p
+		= t('offline.links.already_account')
+		= link_to t('offline.links.sign_in'), new_session_path(resource_name)
+- if devise_mapping.registerable? && controller_name != 'registrations'
+	%p
+		= t('offline.links.no_account')
+		= link_to t('offline.links.sign_up'), new_registration_path(resource_name)
+- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations'
+	= link_to t('offline.links.forget_password'), new_password_path(resource_name), :class => 'forgot'
+- if devise_mapping.confirmable? && controller_name != 'confirmations'
+	= link_to "Didn't receive confirmation instructions ?", new_confirmation_path(resource_name)
+- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks'
+	= link_to "Didn't receive unlock instructions ?", new_unlock_path(resource_name)
+- if devise_mapping.omniauthable?
+	- resource_class.omniauth_providers.each do |provider|
+		= link_to omniauth_authorize_path(resource_name, provider), :class => OmniAuth::Utils.camelize(provider).downcase do
+			- if OmniAuth::Utils.camelize(provider) === 'Facebook'
+				%span.logo-facebook
+			- if OmniAuth::Utils.camelize(provider) === 'Marvin'
+				%span.logo-ft
+			= t('offline.links.auth_connect')
+			#{OmniAuth::Utils.camelize(provider)}

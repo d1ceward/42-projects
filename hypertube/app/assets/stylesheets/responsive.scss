@@ -1,0 +1,27 @@
+// OFFLINE PART
+@media screen and (max-width: 1000px) {
+	body.offline.index {
+		&:before { background-position: center top; }
+		& #wrapper { text-align: center; width: 100%; left: 0; }
+		& footer { left: 50%; transform: translateX(-50%); text-align: center; }
+	}
+	body.movie {
+		.left, .right { display: block; width: 100% !important; padding: 20px 30px !important; }
+		.trailer { margin: 0 auto !important; }
+	}
+}
+@media screen and (max-width: 800px) {
+	body.online.movies #wrapper .columns figure { width: calc(50vw - 20px); }
+	.comments.movie_page { margin: 50px 20px !important; }
+}
+@media screen and (max-width: 500px) {
+	body.offline {
+		&.index #wrapper { padding: 0 15px;
+			h1 { font-size: 26px; }
+			h2 { font-size: 14px; }
+		}
+		#wrapper { width: 100%; padding: 140px 20px 20px 20px; }
+	}
+	body.profile #wrapper form, body.profile #wrapper h3 { width: 100% !important; }
+	body.online.movies #wrapper .columns figure { width: calc(100vw - 20px); }
+}

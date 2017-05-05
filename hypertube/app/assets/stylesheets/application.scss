@@ -1,0 +1,44 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *= require flag-icon
+ *= require font-awesome
+ *= require jquery-ui/datepicker
+ *= require_self
+ */
+@import "normalize";
+@import "bootstrap";
+@import "variables";
+@import "fonts";
+@import "comments";
+@import "movie_downloads";
+@import "movie_views";
+@import "movies";
+@import "online";
+@import "offline";
+@import "responsive";
+
+body { background: #24323d; }
+a:hover { text-decoration: none; }
+.text-center { text-align: center; }
+
+.notification { font-size: 1em; padding: 16px; color: #fff; border-radius: 3px; z-index: 100; position: fixed; bottom: 0; width: 30%; margin: 0 35%; text-align: center; background: rgba(0, 0, 0, 0.72); opacity: 0; border: 1px solid transparent;
+	&.success { background: rgba(41, 214, 51, 0.72); }
+	&.error { background: rgba(255, 59, 48, 0.72); }
+}
+.trailer video { width: calc(100vw - 80px) !important; max-width: 960px; height: auto !important; display: block; }
+div.tab-content { width: calc(100% - 80px); margin: 0 auto; overflow: hidden;
+  div#mep_0 { height: auto !important; }
+  .mejs__mediaelement { position: relative; }
+  video { width: 100%; height: auto; display: block; }
+  .mejs__overlay.mejs__layer.mejs__overlay-play { width: 100% !important; height: 100% !important; }
+  .mejs__time-rail { min-width: 200px; width: calc(100% - (4 * 32px + 2 * 53px + 20px)) !important; }
+}

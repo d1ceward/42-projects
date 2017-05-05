@@ -1,0 +1,101 @@
+version: '2'
+services:
+  # POSTGRESQL
+  db:
+    image: postgres
+    container_name: postgresql
+    volumes:
+      - '/var/lib/postgresql/data:/var/lib/postgresql/data'
+
+  # REDIS
+  redis:
+    image: redis
+    container_name: redis
+    volumes:
+      - ./redis.conf:/etc/redis.conf
+    command: redis-server /etc/redis.conf
+    ports:
+      - '6379:6379'
+
+  #  SIDEKIQ DEFAULT
+  sidekiq_default:
+    build: .
+    container_name: ht_skq_default
+    command: bundle exec sidekiq -q default -c 5
+    volumes:
+      - '.:/hypertube'
+      - './stream_api/public:/hypertube/public/uploads'
+    env_file:
+      - .env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    links:
+      - redis
+      - db
+
+  # SIDEKIQ IMPORTER
+  sidekiq_importer:
+    build: .
+    container_name: ht_skq_importer
+    command: bundle exec sidekiq -q importer -c 5
+    volumes:
+      - '.:/hypertube'
+    env_file:
+      - .env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    links:
+      - redis
+      - db
+
+  # SIDEKIQ MAILER
+  sidekiq_mailer:
+    build: .
+    container_name: ht_skq_mailer
+    command: bundle exec sidekiq -q mailers -c 5
+    volumes:
+      - '.:/hypertube'
+    env_file:
+      - .env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    links:
+      - redis
+      - db
+
+  # NODE
+  node:
+    build: stream_api
+    container_name: ht_node
+    command: node /app/bin/www
+    ports:
+      - '3001:3001'
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    volumes:
+      - './stream_api/public:/app/stream_api/public'
+  # hypertube
+  app:
+    build: .
+    container_name: ht_app
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/hypertube
+    env_file:
+      - .env
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+      - sidekiq_default
+      - sidekiq_importer
+      - sidekiq_mailer
+      - node
+      - db

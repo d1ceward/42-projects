@@ -1,0 +1,32 @@
+@font-face { font-family: 'logo'; src: font-url('logo.eot?9jep57'); src: font-url('logo.eot?9jep57#iefix') format('embedded-opentype'), font-url('logo.ttf?9jep57') format('truetype'), font-url('logo.woff?9jep57') format('woff'), font-url('logo.svg?9jep57#icomoon') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'icon'; src: font-url('icon.eot?efia5a'); src: font-url('icon.eot?efia5a#iefix') format('embedded-opentype'), font-url('icon.ttf?efia5a') format('truetype'), font-url('icon.woff?efia5a') format('woff'), font-url('icon.svg?efia5a#icomoon') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'icon-img'; src: font-url('icon-img.eot?dlrx5d'); src: font-url('icon-img.eot?dlrx5d#iefix') format('embedded-opentype'), font-url('icon-img.ttf?dlrx5d') format('truetype'), font-url('icon-img.woff?dlrx5d') format('woff'), font-url('icon-img.svg?dlrx5d#icomoon') format('svg'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'icomoon'; src:font-url('icomoon.eot?-rdnm34'); src:font-url('icomoon.eot?#iefix-rdnm34') format('embedded-opentype'), font-url('icomoon.woff?-rdnm34') format('woff'), font-url('icomoon.ttf?-rdnm34') format('truetype'), font-url('icomoon.svg?-rdnm34#icomoon') format('svg'); font-weight: normal; font-style: normal; }
+
+[class^="logo-"] { font-family: 'logo' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: color .5s ease-in-out; cursor: pointer;
+	$logos: gaflix '"\e900"', ga '"\e901"', ft '"\e902"', google '"\ea8b"', facebook '"\ea90"', twitter '"\ea96"';
+	@each $l in $logos { $k: nth($l, 1); $v: nth($l, 2);
+		$c: white; $h: #ecf0f1;
+		@if $k == 'gaflix' or $k == 'ga' { $c: #3498db; $h: #2980b9; }
+		&.logo-#{$k} { color: $c;
+			&:hover { color: $h; }
+			&:before { content: #{$v}; }
+		}
+	}
+}
+
+[class^="icon-"] { font-family: 'icon' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: color .5s ease-in-out; cursor: pointer;
+	$icons: bubbles '"\e96f"', options '"\e994"' menu '"\e9bd"', 'star-empty' '"\e9d7"', 'star-full' '"\e9d9"', cross '"\ea0f"', check '"\ea10"', play '"\ea1c"', pause '"\ea1d"', 'volume-high' '"\ea26"', 'volume-medium' '"\ea27"', 'volume-low' '"\ea28"', 'volume-mute' '"\ea2a"', search '"\e986"';
+	@each $i in $icons { $k: nth($i, 1); $v: nth($i, 2);
+		&.icon-#{$k}:before { content: #{$v}; }
+	}
+}
+
+[class^="iconimg-"] { font-family: 'icon-img' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: color .5s ease-in-out; cursor: pointer;
+	$icons-img: eyes '"\e9ce"', download '"\e9c5"', checkmark '"\ea10"', checkmark2 '"\ea11"';
+	@each $o in $icons-img { $k: nth($o, 1); $v: nth($o, 2);
+		&.iconimg-#{$k}:before { content: #{$v}; }
+	}
+}
+
+* { font-family: Helvetica, Arial, sans-serif; color: white; }
