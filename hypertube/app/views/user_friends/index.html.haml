@@ -1,0 +1,27 @@
+%h1 Listing user_friends
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Friend user
+      %th Request send at
+      %th Request accepted at
+      %th
+      %th
+      %th
+
+  %tbody
+    - @user_friends.each do |user_friend|
+      %tr
+        %td= user_friend.user
+        %td= user_friend.friend_user
+        %td= user_friend.request_send_at
+        %td= user_friend.request_accepted_at
+        %td= link_to 'Show', user_friend
+        %td= link_to 'Edit', edit_user_friend_path(user_friend)
+        %td= link_to 'Destroy', user_friend, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User friend', new_user_friend_path

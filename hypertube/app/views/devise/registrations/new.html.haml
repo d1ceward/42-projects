@@ -1,0 +1,30 @@
+%body.offline
+  = render :partial => 'headers/offline'
+  %section#wrapper
+    %h2= t('offline.buttons.sign_up')
+    = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = devise_error_messages!
+      .field{:class => (resource.errors["email"].count > 0 ? 'field_with_errors' : '')}
+        = f.email_field :email, required: 'required'
+        = f.label :email, t('fields.email')
+      .field{:class => (resource.errors["first_name"].count > 0 ? 'field_with_errors' : '')}
+        = f.text_field :first_name, required: 'required'
+        = f.label :first_name, t('fields.first_name')
+      .field{:class => (resource.errors["last_name"].count > 0 ? 'field_with_errors' : '')}
+        = f.text_field :last_name, required: 'required'
+        = f.label :last_name, t('fields.last_name')
+      .field{:class => (resource.errors["password"].count > 0 ? 'field_with_errors' : '')}
+        = f.password_field :password, autocomplete: "off", required: 'required'
+        = f.label :password, t('fields.password', :password => @minimum_password_length)
+      .field{:class => (resource.errors["password_confirmation"].count > 0 ? 'field_with_errors' : '')}
+        = f.password_field :password_confirmation, autocomplete: "off", required: 'required'
+        = f.label :password_confirmation, t('fields.password_confirmation')
+      .field
+        = f.file_field :custom_cover
+        = f.label :custom_cover, raw('<span class="iconimg-download"></span><span id="text-content" text="'"#{t('online.placeholder.image')}"'">'"#{t('online.placeholder.image')}"'</span><label>'"#{t('online.titles.cover')}"'</label>')
+        = f.hidden_field :custom_cover_cache
+      .actions
+        = f.submit t('offline.links.sign_up')
+    = render "devise/shared/links"
+    %footer
+      %p Copyright GaFlix @ 42 by GaTeam

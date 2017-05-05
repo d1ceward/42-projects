@@ -1,0 +1,23 @@
+%h1 Listing user_movies
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Movie
+      %th
+      %th
+      %th
+
+  %tbody
+    - @user_movies.each do |user_movie|
+      %tr
+        %td= user_movie.user
+        %td= user_movie.movie
+        %td= link_to 'Show', user_movie
+        %td= link_to 'Edit', edit_user_movie_path(user_movie)
+        %td= link_to 'Destroy', user_movie, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User movie', new_user_movie_path

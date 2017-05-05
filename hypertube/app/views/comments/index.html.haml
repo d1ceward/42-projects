@@ -1,0 +1,22 @@
+%h1= "Listing comments #{(@movie.nil?)? "" : "of #{@movie.title}"}"
+
+%table
+  %thead
+    %tr
+      %th Content
+      %th Movie
+      %th User
+
+  %tbody
+    - @comments.each do |comment|
+      %tr
+        %td= comment.content
+        %td= comment.try(:movie).to_json
+        %td= comment.user.id
+        %td= link_to 'Show', [@movie, comment]
+        %td= link_to 'Edit', edit_movie_comment_path(@movie, comment)
+        %td= link_to 'Destroy', [@movie, comment], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Comment', new_movie_comment_path

@@ -1,0 +1,6 @@
+= simple_form_for [@movie, @comment] do |f|
+  = f.error_notification
+  .form-inputs
+    = f.input :content, as: :text, requiered: true, input_html: {value: @comment.content}, hint: "Leave your comment"
+  .form-actions
+    = f.button :submit

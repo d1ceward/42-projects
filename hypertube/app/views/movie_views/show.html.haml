@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Movie:
+  = @movie_view.movie
+%p
+  %b User:
+  = @movie_view.user
+
+= link_to 'Edit', edit_movie_view_path(@movie_view)
+\|
+= link_to 'Back', movie_views_path

@@ -1,0 +1,9 @@
+%body.online.movies
+  = render :partial => 'headers/online'
+  %section#wrapper
+    %h2.text-center #{t('online.text.results')}
+    .columns
+      - @movies.each do |m|
+        = render partial: 'movies/movie', locals: {movie: m}
+  %footer
+    %p Copyright GaFlix @ 42 by GaTeam

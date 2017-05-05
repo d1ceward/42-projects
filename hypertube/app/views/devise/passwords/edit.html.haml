@@ -1,0 +1,18 @@
+%body.offline
+	= render :partial => 'headers/offline'
+	%section#wrapper
+		%h2= t('offline.links.new_password')
+		= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+			= devise_error_messages!
+			= f.hidden_field :reset_password_token
+			.field{:class => (resource.errors["password"].count > 0 ? 'field_with_errors' : '')}
+				= f.password_field :password, autocomplete: "off", required: 'required'
+				= f.label :password, t('fields.new_password', :password => @minimum_password_length)
+			.field{:class => (resource.errors["password_confirmation"].count > 0 ? 'field_with_errors' : '')}
+				= f.password_field :password_confirmation, autocomplete: "off", required: 'required'
+				= f.label :password_confirmation, t('fields.password_confirmation')
+			.actions
+				= f.submit t('offline.links.new_password')
+		= render "devise/shared/links"
+		%footer
+			%p Copyright GaFlix @ 42 by GaTeam

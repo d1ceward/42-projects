@@ -1,0 +1,10 @@
+= simple_form_for(@movie_download) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :movie
+    = f.input :downloaded_at
+    = f.input :downloading
+
+  .form-actions
+    = f.button :submit

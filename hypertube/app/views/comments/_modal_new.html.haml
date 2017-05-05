@@ -1,0 +1,12 @@
+.modal.fade#newCommentModal{:tabindex => -1, :role => "dialog", "aria-labelledby" => "newCommentModal", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-content
+      .modal-body.row
+        %h4= t('online.modal.title_modal')
+        %h2= movie.title
+        = simple_form_for [movie, Comment.new] do |f|
+          .col-sm-12
+            .form-group
+              = f.input :content, hint: t('online.modal.write'), input_html: { class: 'form-control'}, label: false
+          .actions
+            %button.btn.btn-fill.btn-info.btn-modal{data: {toggle: 'panel', panel: '#comment', disable_with: t('online.modal.disable') }} #{t('online.modal.button')}

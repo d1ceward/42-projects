@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @user_friend.user
+%p
+  %b Friend user:
+  = @user_friend.friend_user
+%p
+  %b Request send at:
+  = @user_friend.request_send_at
+%p
+  %b Request accepted at:
+  = @user_friend.request_accepted_at
+
+= link_to 'Edit', edit_user_friend_path(@user_friend)
+\|
+= link_to 'Back', user_friends_path

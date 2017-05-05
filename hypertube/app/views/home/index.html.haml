@@ -1,0 +1,45 @@
+- if current_user
+  %body.online.movies
+    = render :partial => 'headers/online'
+    -# My list
+    - if (@user.movies.any?) && (!params[:sort_by].present?)
+      .carousel
+        = render 'movies/my_list', home: true, locals: {user: @user}
+    -# Tredings movies
+    - if !params[:sort_by].present?
+      .carousel
+        %section#wrapper{ :class => (@user.movies.any? && !params[:sort_by].present?) ? 'no-first' : '' }
+          %h2.title_list= I18n.t('movie.trending')
+          .content_carousel
+            .columns
+              - @tredings.each do |m|
+                = render partial: 'movies/movie', locals: {movie: m}
+    -# All movies on DB
+    %form{ :action => root_path, :method => 'get', :id => 'sort', :class => (params[:sort_by].present? ? 'fixed' : ''), :'data-turbolinks-permanent' => true }
+      %h2= "#{t('online.text.sort')} :"
+      %select.cs-select.cs-skin-underline{ :name => 'sort_by', :onchange => 'document.getElementById("sort").submit();' }
+        %option{ :value => 'id', :selected => params[:sort_by] == 'id'}= t('online.text.default')
+        %option{ :value => 'year', :selected => params[:sort_by] == 'year'}= t('online.text.years')
+        %option{ :value => 'length', :selected => params[:sort_by] == 'length'}= t('online.text.length')
+        %option{ :value => 'votes', :selected => params[:sort_by] == 'votes'}= t('online.text.vote')
+      %select.cs-select.cs-skin-underline{ :name => 'sort_type', :onchange => 'document.getElementById("sort").submit();' }
+        %option{ :value => 'DESC', :selected => params[:sort_type] == 'DESC'}= t('online.text.dsc')
+        %option{ :value => 'ASC', :selected => params[:sort_type] == 'ASC'}= t('online.text.asc')
+    %section#wrapper{ :class => (!params[:sort_by].present? ? 'no-first' : '')}
+      .columns#movies_container
+        - @movies.each do |m|
+          = render partial: 'movies/movie', locals: {movie: m}
+        = paginate @movies
+    %footer
+      %p Copyright GaFlix @ 42 by GaTeam
+    = javascript_include_tag "classie.js"
+    = javascript_include_tag "selectFx.js"
+    = javascript_include_tag "select.js"
+- else
+  %body.offline.index
+    = render :partial => 'headers/offline'
+    %section#wrapper
+      %h1= t('offline.titles.h1')
+      %h2= t('offline.titles.h2')
+    %footer
+      %p Copyright GaFlix @ 42 by GaTeam

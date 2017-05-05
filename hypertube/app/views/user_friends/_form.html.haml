@@ -1,0 +1,11 @@
+= simple_form_for(@user_friend) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :friend_user
+    = f.input :request_send_at
+    = f.input :request_accepted_at
+
+  .form-actions
+    = f.button :submit

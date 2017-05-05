@@ -1,0 +1,15 @@
+= simple_form_for(@movie) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, as: :string, requiered: true, input_html: {value: @movie.name}
+    = f.input :description, as: :text, requiered: true, input_html: {value: @movie.description}
+    = f.input :duration, as: :integer, requiered: true, input_html: {value: @movie.duration}
+    = f.input :note, as: :integer, requiered: true, input_html: {value: @movie.note}
+    = f.input :cover, as: :string, requiered: true, input_html: {value: @movie.cover}
+    = f.input :producer, as: :string, requiered: true, input_html: {value: @movie.producer}
+    = f.input :director, as: :string, requiered: true, input_html: {value: @movie.director}
+    = f.input :produced_at, as: :datepicker, requiered: true, input_html: {value: @movie.produced_at}
+
+  .form-actions
+    = f.button :submit

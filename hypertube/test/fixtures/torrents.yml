@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid_imdb: 1
+  name: MyText
+  magnet_link: MyText
+
+two:
+  uid_imdb: 1
+  name: MyText
+  magnet_link: MyText

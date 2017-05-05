@@ -1,0 +1,14 @@
+%body.offline
+	= render :partial => 'headers/offline'
+	%section#wrapper
+		%h2= t('offline.links.forget_password')
+		= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+			= devise_error_messages!
+			.field{:class => (resource.errors["email"].count > 0 ? 'field_with_errors' : '')}
+				= f.email_field :email, required: 'required'
+				= f.label :email, t('fields.email')
+			.actions
+				= f.submit t('offline.buttons.reset_password')
+		= render "devise/shared/links"
+		%footer
+			%p Copyright GaFlix @ 42 by GaTeam

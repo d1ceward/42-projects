@@ -1,0 +1,31 @@
+- home = home || false
+- list_my = list_my || false
+
+%section#wrapper
+  - if home
+    %h2.title_list= I18n.t('movie.my-list')
+    .content_carousel
+      .columns
+        - @user.movies.last(10).each do |m|
+          = render partial: 'movies/movie', locals: {movie: m}
+        - if @user.movies.count > 5
+          = link_to my_list_movies_path, {class: 'show_more_link'} do
+            %figure.show_more
+              .more
+                %p +
+              %p= t('online.text.more')
+  - elsif list_my
+    %h2.title_list= "#{t('online.friend.user_list', username: @user.username, count: @user.movies.count)}"
+    .content_carousel
+      .columns
+        - if @user.movies.any?
+          - @user.movies.each do |m|
+            = render partial: 'movies/movie', locals: {movie: m}
+        - else
+          .more
+            %p= t('online.friend.no_list')
+  - else
+    %h2.title_list= I18n.t('movie.my-list')
+    .columns
+      - @user.movies.each do |m|
+        = render partial: 'movies/movie', locals: {movie: m}

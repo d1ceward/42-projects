@@ -1,0 +1,8 @@
+%p#notice= notice
+
+= @comment.to_json
+
+%br
+= link_to 'Edit', edit_movie_comment_path(@movie, @comment)
+\|
+= link_to 'Back', movie_comments_path

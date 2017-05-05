@@ -1,0 +1,74 @@
+%body.online.movie
+  = render :partial => 'headers/online'
+  %section#wrapper.profile
+    = cache [Time.now, params[:locale] || current_user.try(:language), current_user.id, @user.id, @user.id.in?(current_user.friends.pluck(:id))] do
+      -# Information du user
+      .wrap_user
+        %div
+          %figure
+            - if @user.custom_cover.url
+              = image_tag "#{@user.custom_cover.url}"
+            - elsif @user.cover
+              = image_tag "#{@user.cover}"
+            - else
+              = image_tag 'user_placeholder.png'
+          .user_infos
+            %h3
+              = "#{@user.first_name} #{@user.last_name} aka "
+              %span= @user.username
+            %p= "#{t('online.friend.create_at')} #{@user.created_at.strftime('%d.%m.%Y')}"
+            %p
+              = "#{t('online.friend.language')}: "
+              = @user.language == 'fr' ? t('language.fr') : t('language.en')
+            %p
+              = "#{t('online.friend.seen_movie')}: "
+              = @user.movie_views.count
+          - if @user != current_user
+            .request_friend
+              - UserFriend.where(:user_id => @user, :friend_user_id => current_user, :request_accepted_at => nil).each do |rr|
+                .request_username= "#{rr.user.username} #{t('online.friend.want')}"
+                = button_to accept_user_friend_path(rr), class: 'btn btn-primary' do
+                  = t('online.friend.accept')
+                = button_to user_friend_path(rr), :method => :delete, class: 'btn btn-danger' do
+                  = t('online.friend.denied')
+              - if UserFriend.where(:user_id => current_user, :friend_user_id => @user, :request_accepted_at => nil).any?
+                .wait_friend{class: 'btn btn-primary btn-lg disabled'}= t('online.friend.waiting')
+              - if current_user.user_friends.where(user_id: current_user, friend_user_id: @user).where.not(:request_accepted_at => nil).any?
+                - if @user.id.in? current_user.friends.pluck(:friend_user_id)
+                  = button_to user_friend_path(current_user.friends.find_by_friend_user_id(@user.id)), :method => :delete, class: 'btn btn-danger' do
+                    = t('online.friend.delete_friend')
+              - elsif UserFriend.where("(user_id = #{@user.id} OR friend_user_id = #{@user.id}) AND (user_id = #{current_user.id} OR friend_user_id = #{current_user.id})").empty?
+                = button_to user_friends_path, method: :post, params: {user_friend: {user_id: current_user.id, friend_user_id: @user}}, class: 'btn btn-primary' do
+                  = t('online.friend.add_friend')
+      .wrap_user.friend_list
+        %h2
+          = "#{t('online.friend.user_friend', username: @user.username, count: @user.friends.count)}"
+        .carousel_friend
+          .carousel_wrap
+            - if @user.friends.any?
+              - @user.friends.each do |fri|
+                = link_to user_path(fri.friend_user.username) do
+                  .content_user
+                    %figure
+                      - if fri.friend_user.custom_cover.url
+                        = image_tag "#{fri.friend_user.custom_cover.url}"
+                      - elsif fri.friend_user.cover
+                        = image_tag "#{fri.friend_user.cover}"
+                      - else
+                        = image_tag 'user_placeholder.png'
+                    %p= fri.friend_user.username
+            - else
+              %h2= t('online.friend.no_friend')
+      -# render de ses commentaires
+      .comments
+        %h2
+          = "#{t('online.friend.user_comment', username: @user.username, count: @user.comments.count)}"
+        - if @user.comments.any?
+          - @user.comments.order(created_at: :desc).each do |c|
+            = render partial: 'comments/item', locals: {c: c, profile: true}
+        - else
+          %h2.no_comment
+            = t('online.friend.no_comment')
+      -# render de sa list
+      .carousel
+        = render 'movies/my_list', list_my: true, locals: {user: @user}

@@ -1,0 +1,6 @@
+.search
+  %form{ :action => movies_path, :method => 'get' }
+    %input{:type => 'search', :name => 'search', :placeholder => t('fields.search')}
+    .submit
+      %input{:type => 'submit', :value => ''}
+      %span.icon-search

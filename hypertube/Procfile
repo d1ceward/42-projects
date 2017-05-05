@@ -1,0 +1,5 @@
+hypertube: rails s -p 3000 -b 0.0.0.0
+skdefault: bundle exec sidekiq -q default -c 5
+skimporter: bundle exec sidekiq -q importer -c 5
+skmailer: bundle exec sidekiq -q mailers -c 5
+stream_api: node stream_api/bin/www

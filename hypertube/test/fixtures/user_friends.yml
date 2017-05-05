@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  friend_user: one
+  request_send_at: 2017-04-15 18:39:50
+  request_accepted_at: 2017-04-15 18:39:50
+
+two:
+  user: two
+  friend_user: two
+  request_send_at: 2017-04-15 18:39:50
+  request_accepted_at: 2017-04-15 18:39:50

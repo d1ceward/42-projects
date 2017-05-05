@@ -1,0 +1,25 @@
+%h1 Listing movie_downloads
+
+%table
+  %thead
+    %tr
+      %th Movie
+      %th Downloaded at
+      %th Downloading
+      %th
+      %th
+      %th
+
+  %tbody
+    - @movie_downloads.each do |movie_download|
+      %tr
+        %td= movie_download.movie
+        %td= movie_download.downloaded_at
+        %td= movie_download.downloading
+        %td= link_to 'Show', movie_download
+        %td= link_to 'Edit', edit_movie_download_path(movie_download)
+        %td= link_to 'Destroy', movie_download, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Movie download', new_movie_download_path

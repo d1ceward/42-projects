@@ -1,0 +1,9 @@
+= simple_form_for(@user_movie) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :user
+    = f.association :movie
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,42 @@
+%body.online.profile
+  = render :partial => 'headers/online'
+  %section#wrapper
+    %h2= t('online.titles.edit')
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      .field{:class => (resource.errors["email"].count > 0 ? 'field_with_errors' : '')}
+        = f.email_field :email, required: 'required'
+        = f.label :email
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div= "Currently waiting confirmation for: #{resource.unconfirmed_email}"
+      - if resource.provider.nil?
+        .field.annotation{:class => (resource.errors["password"].count > 0 ? 'field_with_errors' : '')}
+          %i= t('online.titles.leave_blank')
+          = f.password_field :password, autocomplete: "off"
+          = f.label :password, ''"#{t('online.titles.password')}"' ('"#{@minimum_password_length}"' '"#{t('online.titles.minimum')}"')'
+        .field{:class => (resource.errors["password_confirmation"].count > 0 ? 'field_with_errors' : '')}
+          = f.password_field :password_confirmation, autocomplete: "off"
+          = f.label :password_confirmation
+        .field.annotation{:class => (resource.errors["current_password"].count > 0 ? 'field_with_errors' : '')}
+          %i= t('online.titles.need_current_pass')
+          = f.password_field :current_password, autocomplete: "off"
+          = f.label :current_password, t('online.titles.current_pass')
+      .field
+        = f.file_field :custom_cover
+        = f.label :custom_cover, raw('<span class="iconimg-download"></span><span id="text-content" text="'"#{t('online.placeholder.image')}"'">'"#{t('online.placeholder.image')}"'</span><label>'"#{t('online.titles.cover')}"'</label>')
+        = f.hidden_field :custom_cover_cache
+      .radio-group.radio-group--2
+        %input#radio-2-1.radio-group__input{:checked => @user.language == "fr" ? "checked" : false, :name => "[user]language", :type => "radio", :value => "fr"}/
+        %label.radio-group__label{:for => "radio-2-1"}
+          %p= t('language.fr')
+        %input#radio-2-2.radio-group__input{:checked => @user.language == "en" ? "checked" : false, :name => "[user]language", :type => "radio", :value => "en"}/
+        %label.radio-group__label{:for => "radio-2-2"}
+          %p= t('language.en')
+        %span.radio-group__background
+      .actions
+        = f.submit t('online.placeholder.update')
+    %h3
+      = t('online.text.unhappy')
+    = button_to t('online.placeholder.delete_account'), registration_path(resource_name), data: { confirm: t('online.placeholder.sure') }, method: :delete, class: 'cancel'
+  %footer
+    %p Copyright GaFlix @ 42 by GaTeam
