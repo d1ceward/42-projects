@@ -39,12 +39,12 @@ $(NAME): $(OBJECTS)
 	@make -C libft/
 	@printf "| $(ERROR_C)=>$(NO_C) $(SILENT_C)Minishell:$(NO_C)%-37s" \
 		" Compiling ..."
-	@gcc $(CFLAGS) $(OBJECTS) -L libft/ -lft -o $(NAME)
+	@clang $(CFLAGS) $(OBJECTS) -L libft/ -lft -o $(NAME)
 	@printf "[$(OK_C)DONE$(NO_C)]\n"
 	
 objs/%.o: %.c
 	@mkdir -p $(dir $@)
-	@gcc $(CFLAGS) -I $(INC_DIR_LIBFT) \
+	@clang $(CFLAGS) -I $(INC_DIR_LIBFT) \
 		-I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
 	@printf "| $(SILENT_C)=>$(NO_C)%-48s[$(OK_C)OK$(NO_C)]\n" " $<"
 	

@@ -13,7 +13,7 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-# include <mlx.h>
+# include "mlx.h"
 # include <math.h>
 # include "libft.h"
 
@@ -33,30 +33,30 @@
 # define MOTIONNOTIFY 6
 # define POINTERMOTIONMASK (1L<<6)
 
-# define KEY_F1 122
-# define KEY_ESC 53
-# define KEY_SPACE 49
-# define KEY_DELETE 51
-# define KEY_R 15
-# define KEY_F 3
-# define KEY_C 8
-# define KEY_PLUS 69
-# define KEY_MINUS 78
+# define KEY_F1 65470
+# define KEY_ESC 65307
+# define KEY_SPACE 32
+# define KEY_DELETE 65288
+# define KEY_R 114
+# define KEY_F 102
+# define KEY_C 99
+# define KEY_PLUS 65451
+# define KEY_MINUS 65453
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
 # define MOUSE_LEFT_CLICK 1
 # define MOUSE_RIGHT_CLICK 2
-# define KEY_W 13
-# define KEY_S 1
-# define KEY_A 0
-# define KEY_D 2
-# define KEYPAD_1 83
-# define KEYPAD_2 84
-# define KEYPAD_3 85
-# define KEYPAD_4 86
-# define KEYPAD_5 87
-# define KEYPAD_6 88
-# define KEYPAD_7 89
+# define KEY_W 122
+# define KEY_S 115
+# define KEY_A 113
+# define KEY_D 100
+# define KEYPAD_1 65436
+# define KEYPAD_2 65433
+# define KEYPAD_3 65435
+# define KEYPAD_4 65430
+# define KEYPAD_5 65437
+# define KEYPAD_6 65432
+# define KEYPAD_7 65429
 
 typedef struct	s_folkey
 {
