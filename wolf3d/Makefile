@@ -39,14 +39,14 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@make -C libft/
 	@printf "| $(ERROR_C)=>$(NO_C) $(SILENT_C)Wolf3d:$(NO_C)%-40s" " Compiling ..."
-	@clang $(CFLAGS) $(OBJECTS) -L libft/ -L ../lib/minilibx11 -lft -lm -lmlx -lX11 -lXext -o $(NAME)
+	@gcc $(CFLAGS) $(OBJECTS) -L libft/ -L ../dependency/minilibx -lft -lm -lmlx -lX11 -lXext -o $(NAME)
 	@printf "[$(OK_C)DONE$(NO_C)]\n"
-	
+
 objs/%.o: %.c
 	@mkdir -p $(dir $@)
-	@clang $(CFLAGS) -I $(INC_DIR_LIBFT) -I ../lib/minilibx11/  -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
+	@gcc $(CFLAGS) -I $(INC_DIR_LIBFT) -I ../dependency/minilibx  -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
 	@printf "| $(SILENT_C)=>$(NO_C)%-48s[$(OK_C)OK$(NO_C)]\n" " $<"
-	
+
 clean:
 	@printf "| $(ERROR_C)=>$(NO_C) $(SILENT_C)Wolf3d:$(NO_C)%-40s" \
 		" Removed objects"
