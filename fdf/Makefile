@@ -38,12 +38,12 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@make -C libft/
 	@printf "$(ERROR_C)=>$(NO_C) $(SILENT_C)Wireframe:$(NO_C)%-37s" " Compiling ..."
-	@gcc $(CFLAGS) -L libft/ -lft -lm -lmlx -framework OpenGL -framework AppKit $(OBJECTS) -o $(NAME)
+	@gcc $(CFLAGS) -L libft/ -L ../dependency/minilibx -lft -lmlx -lm  $(OBJECTS) -o $(NAME)
 	@printf "[$(OK_C)DONE$(NO_C)]\n"
 	
 objs/%.o: %.c
 	@mkdir -p $(dir $@)
-	@gcc $(CFLAGS) -I $(INC_DIR_LIBFT) -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
+	@gcc $(CFLAGS) -I $(INC_DIR_LIBFT) -I ../dependency/minilibx -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
 	@printf "$(SILENT_C)Wireframe =>$(NO_C)%-38s[$(OK_C)OK$(NO_C)]\n" " $<"
 	
 clean:
