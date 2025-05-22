@@ -13,7 +13,7 @@
 NAME = wolf3d
 
 # Configs
-CFLAGS       = -Wall -Wextra -Werror -O2
+CFLAGS       = -Wall -Wextra -Werror -O2 -std=gnu11
 INC_DIR_LIBFT = libft/includes/
 INCLUDES_DIR = includes/
 SRC_DIR      = srcs/

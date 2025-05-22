@@ -39,11 +39,11 @@ $(NAME): $(OBJECTS)
 	@make -C libft/
 	@printf "| $(ERROR_C)=>$(NO_C) $(SILENT_C)Fract'ol:$(NO_C)%-38s" " Compiling ..."
 	@printf "[$(OK_C)DONE$(NO_C)]\n"
-	@gcc $(CFLAGS) $(OBJECTS) -L libft/ -L ../lib/minilibx11 -lft -lm -lmlx -lX11 -lXext -o $(NAME)
+	@clang $(CFLAGS) $(OBJECTS) -L libft/ -L ../dependency/minilibx -lft -lmlx -lm -lX11 -lXext -o $(NAME)
 	
 objs/%.o: %.c
 	@mkdir -p $(dir $@)
-	@gcc $(CFLAGS) -I $(INC_DIR_LIBFT) -I ../lib/minilibx11/ -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
+	@clang $(CFLAGS) -I $(INC_DIR_LIBFT) -I ../dependency/minilibx/ -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
 	@printf "| $(SILENT_C)=>$(NO_C)%-48s[$(OK_C)OK$(NO_C)]\n" " $<"
 	
 clean:

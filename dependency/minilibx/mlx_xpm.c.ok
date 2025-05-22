@@ -1,9 +1,9 @@
 /*
-** xpm-read.c for MinilibX in
-**
+** xpm-read.c for MinilibX in 
+** 
 ** Made by Charlie Root
 ** Login   <ol@epitech.net>
-**
+** 
 ** Started on  Tue Dec 11 15:25:27 2001 olivier crouzet
 ** Last update Sat Oct  1 14:40:55 2005 Olivier Crouzet
 */
@@ -59,7 +59,7 @@ char	*mlx_int_static_line(char **xpm_data,int *pos,int size)
       len = len2;
     }
   /* strcpy(copy,str); */
-  strncpy(copy, str, len2+1);
+  strlcpy(copy, str, len2+1);
   return (copy);
 }
 
@@ -169,7 +169,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
       while (tab[j] && strcmp(tab[j++],"c"));
       if (!tab[j])
 	RETURN;
-
+      
       if ((rgb_col = mlx_int_get_text_rgb(tab[j]))==-1)
 	{
 	  if (!(clip_data = malloc(4*width*height)) ||   /* ok, nice size .. */

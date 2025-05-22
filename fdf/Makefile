@@ -13,7 +13,7 @@
 NAME = fdf
 
 # Configs
-CFLAGS       = -Wall -Wextra -Werror
+CFLAGS       = -Wall -Wextra -Werror -std=gnu11
 INC_DIR_LIBFT = libft/includes/
 INCLUDES_DIR = includes/
 SRC_DIR      = srcs/
@@ -38,14 +38,14 @@ all: $(NAME)
 $(NAME): $(OBJECTS)
 	@make -C libft/
 	@printf "$(ERROR_C)=>$(NO_C) $(SILENT_C)Wireframe:$(NO_C)%-37s" " Compiling ..."
-	@gcc $(CFLAGS) -L libft/ -L ../dependency/minilibx -lft -lmlx -lm  $(OBJECTS) -o $(NAME)
+	@gcc $(CFLAGS) $(OBJECTS) -L libft/ -L ../dependency/minilibx -lft -lm -lmlx -lX11 -lXext -o $(NAME)
 	@printf "[$(OK_C)DONE$(NO_C)]\n"
-	
+
 objs/%.o: %.c
 	@mkdir -p $(dir $@)
 	@gcc $(CFLAGS) -I $(INC_DIR_LIBFT) -I ../dependency/minilibx -I $(INCLUDES_DIR) -c $(subst __,/,$<) -o $@
 	@printf "$(SILENT_C)Wireframe =>$(NO_C)%-38s[$(OK_C)OK$(NO_C)]\n" " $<"
-	
+
 clean:
 	@printf "$(ERROR_C)=>$(NO_C) $(SILENT_C)Wireframe:$(NO_C)%-37s" " Removed objects"
 	@rm -rf $(OBJ_DIR)
